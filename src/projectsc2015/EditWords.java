@@ -22,20 +22,20 @@ public class EditWords {
      * signifies minimum value in the confusion matrices
      * @return
      */
-    public ArrayList<CorrectWord> singleEditWords(String typo, int threshold, int currentEd){
+    public ArrayList<CorrectWord> singleEditWords(boolean checkInDict,String typo, int threshold, int currentEd){
        
         //contains all dictionary words
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>();
         
-        dictWords.addAll(correctAdd(typo,threshold));
-        dictWords.addAll(correctDel(typo,threshold));
-        dictWords.addAll(correctSub(typo,threshold));
+        dictWords.addAll(correctAdd(checkInDict,typo,threshold));
+        dictWords.addAll(correctDel(checkInDict,typo,threshold));
+        dictWords.addAll(correctSub(checkInDict,typo,threshold));
         
         //contains all dictionary words
         ArrayList<CorrectWord> correctWords;
         correctWords = new ArrayList<>();
-        for(String s: dictWords){
+        for(String s: dictWords ){
             correctWords.add(new CorrectWord(s,currentEd + 1));
         }
         
@@ -48,28 +48,33 @@ public class EditWords {
         ArrayList<CorrectWord> dictWords;
         dictWords = new ArrayList<>();
         for(int i = 0; i< threshold.length;i++){
-            if(i == 0){
-                dictWords.addAll(singleEditWords(typo,threshold[i],0));
+            if(i == 0 && i == threshold.length - 1)
+                dictWords.addAll(singleEditWords(true,typo,threshold[i],0));
+            else if(i == 0 && i != threshold.length - 1){
+                dictWords.addAll(singleEditWords(false,typo,threshold[i],0));
             }
-            else {
-                 dictWords.addAll(singleEditWords(dictWords,threshold[i],i));
+            else  if(i == threshold.length - 1){
+                 dictWords.addAll(singleEditWords(true,dictWords,threshold[i],i));
+            }
+            else  if(i != threshold.length - 1){
+                 dictWords.addAll(singleEditWords(false,dictWords,threshold[i],i));
             }
         }
         return dictWords;
     }
     
-     public ArrayList<CorrectWord> singleEditWords(ArrayList<CorrectWord> typo, int threshold, int currentEd){
+     public ArrayList<CorrectWord> singleEditWords(boolean checkInDict,ArrayList<CorrectWord> typo, int threshold, int currentEd){
         
         ArrayList<CorrectWord> dictWords;
         dictWords = new ArrayList<>();
         for(CorrectWord s:typo){  
-          dictWords.addAll(singleEditWords(s.correctWord,threshold,currentEd));
+          dictWords.addAll(singleEditWords(checkInDict,s.correctWord,threshold,currentEd));
         }  
          return dictWords;
     }
     
     //Take care of inadvertent additions made to the typo
-     private ArrayList<String> correctAdd(String t, int threshold){
+     private ArrayList<String> correctAdd(boolean checkInDict,String t, int threshold){
          
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
@@ -83,7 +88,10 @@ public class EditWords {
                 }
                 else
                     newWord = t.substring(0,i+1);
-               if(Utilities.isDictWord(newWord))
+                
+               if(checkInDict && Utilities.isDictWord(newWord))
+                   dictWords.add(newWord);
+               else if (!checkInDict)
                    dictWords.add(newWord);
             }
             
@@ -93,7 +101,7 @@ public class EditWords {
      }
     
      //Take care of inadvertent deletions made to the typo
-     private ArrayList<String> correctDel(String t, int threshold){
+     private ArrayList<String> correctDel(boolean checkInDict,String t, int threshold){
          
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
@@ -114,7 +122,10 @@ public class EditWords {
                 }
                 else
                     newWord = t.substring(0,i+1) + intToChar(i1);
-               if(Utilities.isDictWord(newWord))
+               // if(newWord.equals("believe"))
+              if(checkInDict && Utilities.isDictWord(newWord))
+                   dictWords.add(newWord);
+               else if (!checkInDict)
                    dictWords.add(newWord);
             }
             
@@ -125,7 +136,7 @@ public class EditWords {
     
      
      //Take care of inadvertent substitutions made to the typo
-     private ArrayList<String> correctSub(String t, int threshold){
+     private ArrayList<String> correctSub(boolean checkInDict,String t, int threshold){
          
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
@@ -139,7 +150,9 @@ public class EditWords {
                 newWord = String.valueOf(myNameChars);
                myNameChars = t.toCharArray();
                
-               if(Utilities.isDictWord(newWord))
+              if(checkInDict && Utilities.isDictWord(newWord))
+                   dictWords.add(newWord);
+               else if (!checkInDict)
                    dictWords.add(newWord);
             }
             

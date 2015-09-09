@@ -14,13 +14,15 @@ public class CorrectWord {
     public String correctWord;
     public int lexicalEd;
     public int lexicalRank;
-    public int dictCount;
+    public long dictCount;
     
     public CorrectWord(String s, int ed){
         correctWord = s;
         lexicalEd = ed;
         dictCount = Utilities.countOfWord(s);
     }
+    
+    
     /*
     public CorrectWord(String s){
         correctWord = s;
