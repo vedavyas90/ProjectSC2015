@@ -13,7 +13,6 @@ public class Utilities {
     
     public static boolean isDictWord(String s){
         return true;
-        
     }
     public static int countOfWord(String s){
         return 100;
