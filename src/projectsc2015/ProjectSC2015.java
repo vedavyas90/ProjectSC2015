@@ -28,6 +28,15 @@ public class ProjectSC2015 {
         
         SentencePreprocess spp = new SentencePreprocess(Utilities.readPhrases(),wcp);
         ArrayList<Sentence> sent = spp.getPreprocessedSentences();
+        
+        FeatureSentenceMap fsm = new FeatureSentenceMap();
+        ArrayList<Feature> features = fsm.getContextFeaturesForSentences(sent);
+        
+        FeatureProcess fp = new FeatureProcess(features);
+        ArrayList<Feature> processedFeatures = fp.getProcessedFeatures();
+        
+        DisplayOutput dop = new DisplayOutput();
+        dop.displayForSentences(sent,processedFeatures);
        
     }
     

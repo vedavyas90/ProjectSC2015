@@ -17,5 +17,14 @@ public class Sentence {
     public String typo;
     public int typoIndex;
     public  ArrayList<CorrectWord> correctWords;
+    public int id;
+    
+    public Sentence(int _id){
+        id = _id;
+    }
+    
+    public ArrayList<String> getNeighbourWords(int windowSize){
+        return null;
+    }
     
 }

@@ -11,8 +11,15 @@ package projectsc2015;
  */
 public class ContextWord  extends Feature{
 
-    public ContextWord(String f,String c) {
-        super(f,c);
+    
+ /**
+ *
+ * @author aidb
+     * @param feature feature is feature word(+ or - 3 context word)
+     * @param confusedWord confused words are found from dictionary
+ */
+    public ContextWord(String feature,String confusedWord,int sId) {
+        super(feature,confusedWord,sId);
     }
     
 }

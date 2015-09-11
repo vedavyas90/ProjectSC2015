@@ -13,9 +13,29 @@ public abstract class Feature {
     
     public String featureString;
     public String confusedWord;
-    public Feature(String feat,String c){
+    public int sentenceId;
+    public Feature(String feat,String c,int sId){
         featureString = feat;
         confusedWord = c;
+        sentenceId = sId;
     }
     
+    public long getFeatureAndWordCount(){
+        return 100;
+    }
+   
+     public long getWordCount(){
+        return 100;
+    }
+     
+    /**
+     *returns true if it crosses min. threshold
+     * and passes chi-square test
+     * @return
+     */
+    public boolean isValid(){
+        return true;
+    } 
+   
+   
 }
