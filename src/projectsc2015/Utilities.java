@@ -21,6 +21,8 @@ public class Utilities {
     
     static DicGen dic;
     static String typoPath = "src/TestData/words.txt";        
+    static String phrasePath = "src/TestData/phrases.txt";        
+    static String sentencePath = "src/TestData/sentences.txt";        
     public static boolean debug = false;
     public static boolean isDictWord(String s){
         //return true;
@@ -61,5 +63,9 @@ public class Utilities {
 		} 
                 return inputs;
                
+    }
+     
+   public static ArrayList<String> readPhrases(){
+        return readFile(new File(phrasePath));
     }
 }
