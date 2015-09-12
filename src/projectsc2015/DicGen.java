@@ -120,7 +120,7 @@ public class DicGen {
 				//System.out.println(sCurrentLine);
                                 tokensVal = sCurrentLine.split("	");
                                 //System.out.println("word: "+tokensVal[0]+" and WordCount: "+Long.parseLong(tokensVal[1]));
-                                dict.insert(tokensVal[0], Long.parseLong(tokensVal[1]));
+                                dict.insert(tokensVal[0].toLowerCase(), Long.parseLong(tokensVal[1]));
                                 
                         }
 		} catch (IOException e) {
@@ -130,32 +130,34 @@ public class DicGen {
                 //printKMostFreq (fp, k);
     }
     
-        public Trie listFilesForFolder(final File folder) {
+        public void listFilesForFolder(final File folder) {
             String file;
             for (final File fileEntry : folder.listFiles()) {
                     file=fileEntry.getName();
-                    System.out.println("reading from: "+file);
+                   // System.out.println("reading from: "+file);
                     readFile(fileEntry);
             
             }
-              System.out.println("Dictionary created");
-         return dict;
+             
+            //System.out.println("Dictionary created");
+         
         }
-    public static void main (String []args){
+ //   public static void main1 (String []args){
 //        System.out.println(" Enter the path of directory ...");
 //        Scanner scn=new Scanner(System.in);
-            String dirpath="src/Directory"; //scn.next();
-            DicGen dic=new DicGen();
+        public DicGen(){
+        String dirpath="src/Directory"; //scn.next();
+           // DicGen dic=new DicGen();
             final File folder = new File(dirpath);
-            Trie dictionary=dic.listFilesForFolder(folder);
+           listFilesForFolder(folder);
             
             //Testing
-            String testWord="THE";
-            if(dictionary.isDictWord(testWord)){
-             System.out.println("wordcount of: "+testWord+ " is: " +dictionary.countOfWord(testWord));
+          /*  String testWord="TH";
+            if(dict.isDictWord(testWord)){
+             System.out.println("wordcount of: "+testWord+ " is: " +dict.countOfWord(testWord));
             }else
               System.out.println(testWord+ " is not a word of dictionary " );  
-            
+           */ 
 	}
 
     

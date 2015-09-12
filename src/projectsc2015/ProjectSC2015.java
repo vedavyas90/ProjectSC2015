@@ -6,6 +6,7 @@
 package projectsc2015;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -19,22 +20,25 @@ public class ProjectSC2015 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String typo = "ad";
-        EditWords w = new EditWords();
         
-        ArrayList<CorrectWord> dictWords;
-        dictWords = new ArrayList<>();
-        int [] threshold = {100,100};
-        dictWords.addAll(w.editWords(typo, threshold));
+        DicGen dic = new DicGen();
+        Utilities.dic = dic;
+        WordCorrectionProcess wcp = new WordCorrectionProcess();
+        wcp.correctWordErrors(10,Utilities.readTypos());
+        
+        SentencePreprocess spp = new SentencePreprocess(Utilities.readPhrases(),wcp);
+        ArrayList<Sentence> sent = spp.getPreprocessedSentences();
+        
+        FeatureSentenceMap fsm = new FeatureSentenceMap();
+        ArrayList<Feature> features = fsm.getContextFeaturesForSentences(sent);
+        
+        FeatureProcess fp = new FeatureProcess(features);
+        ArrayList<Feature> processedFeatures = fp.getProcessedFeatures();
+        
+        DisplayOutput dop = new DisplayOutput();
+        dop.displayForSentences(sent,processedFeatures);
        
-       // for(CorrectWord s : dictWords)
-        //    System.out.println(s.correctWord + " " + s.lexicalEd);
-        Rank rank = new Rank(dictWords);
-        Stream<CorrectWord> rankedWords = rank.rank();
-        rankedWords.forEach(s ->
-           System.out.println(s.correctWord + " " + s.lexicalEd + " " + s.lexicalRank));
-        
     }
     
-    
+   
 }
