@@ -6,6 +6,7 @@
 package projectsc2015;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -76,6 +77,7 @@ public class EditWords {
     //Take care of inadvertent additions made to the typo
      private ArrayList<String> correctAdd(boolean checkInDict,String t, int threshold){
          
+        HashSet<String> hashWords = new HashSet<>();
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
         String newWord;
@@ -90,19 +92,22 @@ public class EditWords {
                     newWord = t.substring(0,i+1);
                 
                if(checkInDict && Utilities.isDictWord(newWord))
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
                else if (!checkInDict)
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
             }
             
         }
-        
+        for(String s : hashWords)
+            dictWords.add(s);
         return dictWords;
      }
     
      //Take care of inadvertent deletions made to the typo
      private ArrayList<String> correctDel(boolean checkInDict,String t, int threshold){
          
+         
+          HashSet<String> hashWords = new HashSet<>();
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
         String newWord;
@@ -124,13 +129,15 @@ public class EditWords {
                     newWord = t.substring(0,i+1) + intToChar(i1);
                // if(newWord.equals("believe"))
               if(checkInDict && Utilities.isDictWord(newWord))
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
                else if (!checkInDict)
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
             }
             
          }
         }
+         for(String s : hashWords)
+            dictWords.add(s);
         return dictWords;
      }
     
@@ -138,6 +145,7 @@ public class EditWords {
      //Take care of inadvertent substitutions made to the typo
      private ArrayList<String> correctSub(boolean checkInDict,String t, int threshold){
          
+          HashSet<String> hashWords = new HashSet<>();
         ArrayList<String> dictWords;
         dictWords = new ArrayList<>(); 
         String newWord;
@@ -151,14 +159,15 @@ public class EditWords {
                myNameChars = t.toCharArray();
                
               if(checkInDict && Utilities.isDictWord(newWord))
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
                else if (!checkInDict)
-                   dictWords.add(newWord);
+                   hashWords.add(newWord);
             }
             
             }
         }
-        
+         for(String s : hashWords)
+            dictWords.add(s);
         return dictWords;
      }
     

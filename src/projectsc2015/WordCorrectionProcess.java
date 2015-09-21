@@ -22,7 +22,7 @@ public class WordCorrectionProcess {
         
         ArrayList<CorrectWord> dictWords;
         dictWords = new ArrayList<>();
-        int [] threshold = {0,10,10};
+        int [] threshold = {0,10};
         dictWords.addAll(w.editWords(typo, threshold));
        
        // for(CorrectWord s : dictWords)
