@@ -26,7 +26,7 @@ public class ProjectSC2015 {
         WordCorrectionProcess wcp = new WordCorrectionProcess();
         wcp.correctWordErrors(10,Utilities.readTypos());
         
-        SentencePreprocess spp = new SentencePreprocess(Utilities.readPhrases(),wcp);
+        /*SentencePreprocess spp = new SentencePreprocess(Utilities.readPhrases(),wcp);
         ArrayList<Sentence> sent = spp.getPreprocessedSentences();
         
         FeatureSentenceMap fsm = new FeatureSentenceMap();
@@ -36,7 +36,7 @@ public class ProjectSC2015 {
         ArrayList<Feature> processedFeatures = fp.getProcessedFeatures();
         
         DisplayOutput dop = new DisplayOutput();
-        dop.displayForSentences(sent,processedFeatures);
+        dop.displayForSentences(sent,processedFeatures);*/
        
     }
     
